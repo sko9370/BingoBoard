@@ -1,7 +1,6 @@
 from nicegui import ui
 
 from BingoBackend.BingoModel import BingoModel
-from BingoBackend.BingoGame import BingoGame
 
 class bingo_label(ui.label):
     def _handle_text_change(self, text: str) -> None:
@@ -126,7 +125,8 @@ class BingoWeb:
                             )
 
         # Run web
-        ui.run()
+        # set to False when generating exe
+        ui.run(reload=False)
     
     def check_bingo(self, bingo_picks):
         self.model_dict['bingo'] = str(self.model.check_bingo(bingo_picks))
