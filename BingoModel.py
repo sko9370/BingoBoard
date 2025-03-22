@@ -2,18 +2,22 @@ import random
 
 class BingoModel:
     def __init__(self):
-        self.pattern = '5 in a row'
+        self.pattern = ''
         self.history = []
         self.pool = []
         self.reset_board()
+    
+    def set_win_pattern(self, pattern):
+        self.pattern = pattern
 
     def create_pool(self):
-        B_vals = [('B', i) for i in range(1, 16)]
-        I_vals = [('I', i) for i in range(16, 31)]
-        N_vals = [('N', i) for i in range(31, 46)]
-        G_vals = [('G', i) for i in range(46, 61)]
-        O_vals  = [('O', i) for i in range(61, 76)]
-        pool = B_vals + I_vals + N_vals + G_vals + O_vals
+        letters = 'BINGO'
+        number = 1
+        pool = []
+        for letter in letters:
+            for _ in range(15):
+                pool.append(f'{letter} {number}')
+                number += 1
         return pool
 
     def reset_board(self):
