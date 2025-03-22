@@ -5,6 +5,7 @@ class BingoModel:
         self.pattern = '5 IN A ROW'
         self.history = []
         self.pool = []
+        self.picked_numbers = set()
         self.reset_board()
     
     def set_win_pattern(self, pattern):
@@ -20,10 +21,17 @@ class BingoModel:
                 pool.append(f'{letter} {number}')
                 number += 1
         return pool
+    
+    def check_bingo(self, bingo_picks: list):
+        true_bingo = False
+        if len(set(bingo_picks.split(', ')) - self.picked_numbers) == 0:
+            true_bingo = True
+        return true_bingo
 
     def reset_board(self):
         self.history = []
         self.pool = self.create_pool()
+        self.picked_numbers = set()
         random.shuffle(self.pool)
         print("Bingo game reset!")
 
@@ -34,6 +42,7 @@ class BingoModel:
         
         picked = self.pool.pop()
         self.history.append(picked)
+        self.picked_numbers.add(picked[2:])
         return picked
 
     def get_recent_history(self, length = 3):
