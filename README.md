@@ -2,12 +2,15 @@
 
 This is a basic implementation of a Bingo board tracker, intended to be used with Bingo cards.
 
-The text-based version does not require any dependencies besides a recent version of Python3. The web-based version requires nicegui (Python-based web framework because I didn't want to use JavaScript today) as well.
+## Features
+- Live update of history
+- Settings to change the winning pattern, or add a custom pattern
+- Bingo Checker that takes a list of comma separated numbers and checks if they have been called
+    - Allows bingos to be checked easily
 
 ## Usage
-- Clone the repo
-- To play the text-based terminal game: `python3 BingoBackend/BingoGame.py`
-- To play the web-based game
+- Download the release exe (Windows) and run
+- OR clone the repo
     - `pip install -r requirements.txt`
     - `python3 BingoWeb.py`
     - if browser does not automatically open, navigate to the IP/port shown after running
@@ -16,5 +19,13 @@ The text-based version does not require any dependencies besides a recent versio
 - python3.8+
 - nicegui
 
-## Demo Video
-https://github.com/user-attachments/assets/4ff1a08f-ea71-4fbe-927b-cd0813beba40
+## Screenshots
+![main](screenshots/00main.png)
+
+![few picked](screenshots/01picked.png)
+
+![few picked](screenshots/01picked.png)
+
+![bingo checker](screenshots/02checker.png)
+
+![expanded settings](screenshots/03settings.png)
