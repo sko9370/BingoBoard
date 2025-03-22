@@ -20,6 +20,9 @@ class BingoGame:
             elif control in ['h', 'history']:
                 print('Oldest to Newest')
                 print(self.model.get_history())
+            elif control in ['e', 'exit']:
+                print('Later!')
+                break
             else:
                 print('Not a valid choice, try again')
             print('-' * 50)
