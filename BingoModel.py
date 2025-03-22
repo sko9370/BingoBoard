@@ -19,7 +19,7 @@ class BingoModel:
     def reset_board(self):
         self.history = []
         self.pool = self.create_pool()
-        random.shuffle(self.pool)  # Shuffle the pool to randomize the order
+        random.shuffle(self.pool)
         print("Bingo game reset!")
 
     def pick_number(self):
@@ -32,8 +32,7 @@ class BingoModel:
         return picked
 
     def get_recent_history(self, length = 3):
-        return self.history[-3:]
+        return self.history[-(length+1):-1]
 
     def get_history(self):
-        """Returns the history of picked numbers."""
         return self.history
