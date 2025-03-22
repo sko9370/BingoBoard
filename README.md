@@ -10,6 +10,7 @@ This is a basic implementation of a Bingo board tracker, intended to be used wit
 
 ## Usage
 - Download the release exe (Windows) and run
+    - packed using [nicegui-pack](https://nicegui.io/documentation/section_configuration_deployment#package_for_installation) (pyinstaller)
 - OR clone the repo
     - `pip install -r requirements.txt`
     - `python3 BingoWeb.py`
