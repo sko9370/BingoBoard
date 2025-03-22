@@ -39,4 +39,13 @@ class BingoModel:
         return self.history[-(length+1):-1]
 
     def get_history(self):
-        return self.history
+        if len(self.history)==0:
+            return []
+        else:
+            return self.history
+        
+    def get_last(self):
+        if len(self.history)==0:
+            return ''
+        else:
+            return self.history[-1]

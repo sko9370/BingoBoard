@@ -1,14 +1,15 @@
-from BingoModel import BingoModel
+from BingoBackend.BingoModel import BingoModel
 
 class BingoGame:
-    def __init__(self):
+    def __init__(self, text=True):
         self.model = BingoModel()
+        self.text = text
         self.game_loop()
 
     def game_loop(self):
         control = ''
-        self.choose_pattern()
 
+        self.choose_pattern()
         while control != 'exit':
             print('Type [p]ick, [h]istory, [r]estart, or [e]xit')
             control = input('Enter next command: ')
@@ -42,4 +43,4 @@ class BingoGame:
         print('Picked: ', self.model.history[-1])
 
 if __name__ == '__main__':
-    bingo_game = BingoGame()
+    bingoGame = BingoGame()
