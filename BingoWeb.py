@@ -3,6 +3,14 @@ from nicegui import ui
 from BingoBackend.BingoModel import BingoModel
 from BingoBackend.BingoGame import BingoGame
 
+class bingo_label(ui.label):
+    def _handle_text_change(self, text: str) -> None:
+        super()._handle_text_change(text)
+        if text[0] == ' ':
+            self.classes(replace='text-xl text-positive')
+        else:
+            self.classes(replace='text-xl')
+
 class BingoWeb:
     def __init__(self):
         self.model = BingoModel()
@@ -22,38 +30,15 @@ class BingoWeb:
                 )
 
         # History Table
-        with ui.row(align_items='center'):
-            bingo_rows = [
-                {'letter': 'B'},
-                {'letter': 'I'},
-                {'letter': 'N'},
-                {'letter': 'G'},
-                {'letter': 'O'},
-            ]
-            history_table = ui.table(rows=bingo_rows).props('table-header-class=hidden')
-
-            rows = [{}, {}, {}, {}, {}]
-            for i in range(5):
-                row_dict = rows[i]
-                for j in range(1, 16):
-                    row_dict[j] = (i*15) + j
-            history_table = ui.table(
-                rows=rows,
-                row_key='b',
-                on_select=lambda p: self.model_dict.update({'pattern':p.selection[0]['pattern']}) if p.selection else False
-            ).props('table-header-class=hidden')
-
-            array = list(self.model.picked_numbers)
-            history_table.add_slot('body-cell', f'''
-                <q-td :props="props">
-                    <q-badge :color="{array}.includes(props.value) ? 'green' : 'blue'">
-            '''+
-            '''
-                        {{ props.value }}
-                    </q-badge>
-                </q-td>
-            '''
-            )
+        bingo_word = 'BINGO'
+        for i in range(5):
+            with ui.row(align_items='center'):
+                with ui.card().style('width: 40px').classes('items-center'):
+                    ui.label(bingo_word[i]).classes('text-xl')
+                for j in range(15):
+                    with ui.card().style('width: 50px').classes('items-center'):
+                        number = i*15 + j + 1
+                        bingo_label().classes('text-xl').bind_text_from(self.model_dict['picked_dict'], number)
 
         # Last picked number
         with ui.row(align_items='center'):
@@ -71,7 +56,6 @@ class BingoWeb:
                 )
         # History
         show_history = {'value': False}
-
         with ui.row(align_items='center').bind_visibility_from(
             show_history, 'value'
         ):
@@ -81,13 +65,11 @@ class BingoWeb:
             )
         ui.separator()
 
-
         # Buttons
         with ui.row():
-            ui.button('Pick next', on_click=lambda: self.pick_number(history_table))
+            ui.button('Pick next', on_click=lambda: self.pick_number())
             ui.button('Restart', on_click=lambda: self.restart())
         
-
         # Bingo Checker
         with ui.expansion('Show Bingo Checker', icon='check').classes('w-full'):
             with ui.row(align_items='center'):
@@ -146,21 +128,6 @@ class BingoWeb:
         # Run web
         ui.run()
     
-    def refresh_table(self, history_table):
-        array = [int(num) for num in list(self.model.picked_numbers)]
-        print(f'refreshing with {array}')
-        history_table.add_slot('body-cell', f'''
-            <q-td :props="props">
-                <q-badge :color="{array}.includes(props.value) ? 'green' : 'blue'">
-        '''+
-        '''
-                    {{ props.value }}
-                </q-badge>
-            </q-td>
-        '''
-        )
-
-    
     def check_bingo(self, bingo_picks):
         self.model_dict['bingo'] = str(self.model.check_bingo(bingo_picks))
         with ui.dialog(value=True) as dialog, ui.card():
@@ -176,10 +143,9 @@ class BingoWeb:
                 ui.button('Close', on_click=dialog.close)
                 ui.space()
     
-    def pick_number(self, history_table):
+    def pick_number(self):
         self.model.pick_number()
         self.refresh_dict()
-        self.refresh_table(history_table)
     
     def restart(self):
         self.model.reset_board()
@@ -191,6 +157,7 @@ class BingoWeb:
         self.model_dict['recent'] = ' - '.join(reversed(self.model.get_recent_history()))
         self.model_dict['history'] = ' - '.join(reversed(self.model.get_history()[:-1]))
         self.model_dict['bingo'] = 'False'
+        self.model_dict['picked_dict'] = self.model.picked_dict
 
 if __name__ in {'__main__', '__mp_main__'}:
     bingoWeb = BingoWeb()

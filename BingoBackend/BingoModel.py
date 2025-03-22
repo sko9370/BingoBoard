@@ -6,6 +6,7 @@ class BingoModel:
         self.history = []
         self.pool = []
         self.picked_numbers = set()
+        self.picked_dict = dict()
         self.reset_board()
     
     def set_win_pattern(self, pattern):
@@ -19,6 +20,7 @@ class BingoModel:
         for letter in letters:
             for _ in range(15):
                 pool.append(f'{letter} {number}')
+                self.picked_dict[number] = str(number)
                 number += 1
         return pool
     
@@ -43,6 +45,7 @@ class BingoModel:
         picked = self.pool.pop()
         self.history.append(picked)
         self.picked_numbers.add(picked[2:])
+        self.picked_dict[int(picked[2:])] = f' {self.picked_dict[int(picked[2:])]} '
         return picked
 
     def get_recent_history(self, length = 3):
