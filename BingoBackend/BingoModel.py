@@ -2,13 +2,14 @@ import random
 
 class BingoModel:
     def __init__(self):
-        self.pattern = ''
+        self.pattern = '5 IN A ROW'
         self.history = []
         self.pool = []
         self.reset_board()
     
     def set_win_pattern(self, pattern):
         self.pattern = pattern
+        print(f'Setting win pattern to {pattern}')
 
     def create_pool(self):
         letters = 'BINGO'
@@ -36,7 +37,10 @@ class BingoModel:
         return picked
 
     def get_recent_history(self, length = 3):
-        return self.history[-(length+1):-1]
+        if len(self.history)<2:
+            return ['Pick!']
+        else:
+            return self.history[-(length+1):-1]
 
     def get_history(self):
         if len(self.history)==0:
@@ -46,6 +50,6 @@ class BingoModel:
         
     def get_last(self):
         if len(self.history)==0:
-            return ''
+            return 'Pick!'
         else:
             return self.history[-1]
