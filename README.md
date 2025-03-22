@@ -17,4 +17,4 @@ The text-based version does not require any dependencies besides a recent versio
 - nicegui
 
 ## Demo Video
-https://github.com/user-attachments/assets/3f94fb28-610d-45ab-a876-3dba820e8570
+https://github.com/user-attachments/assets/4ff1a08f-ea71-4fbe-927b-cd0813beba40
