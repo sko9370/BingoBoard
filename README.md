@@ -1,10 +1,10 @@
 # BingoBoard
 
-This is a basic implementation of a Bingo board tracker, intended to be used with Bingo cards.
+This is a web GUI implementation of a Bingo board tracker, intended to be used with Bingo cards.
 
 ## Features
 - Live update of history
-- Settings to change the winning pattern, or add a custom pattern
+- Settings to set the winning pattern or to add a custom pattern
 - Bingo Checker that takes a list of comma separated numbers and checks if they have been called
     - Allows bingos to be checked easily
 
